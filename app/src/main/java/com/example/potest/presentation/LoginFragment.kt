@@ -39,17 +39,25 @@ class LoginFragment : Fragment() {
 
     private fun setObservers() {
         viewModel.isAuth.observe(viewLifecycleOwner) {
-            if (it) {
-                TODO()
+            if (!it.isNullOrEmpty()) {
+                launchProfileFragment(it)
             } else {
                 Toast.makeText(requireContext(), getString(R.string.auth_error), Toast.LENGTH_LONG)
                     .show()
+                binding.btnLogin.isEnabled = true
             }
         }
     }
 
+    private fun launchProfileFragment(id: String) {
+        requireActivity().supportFragmentManager.beginTransaction()
+            .replace(R.id.main_container, ProfileFragment.newInstance(id))
+            .commit()
+    }
+
     private fun setOnclickListeners() {
         binding.btnLogin.setOnClickListener {
+            it.isEnabled = false
             val email = binding.edEmailAddress.text.toString()
             val password = binding.edPassword.text.toString()
             viewModel.authUser(email, password)

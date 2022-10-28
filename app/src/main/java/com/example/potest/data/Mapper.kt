@@ -2,6 +2,7 @@ package com.example.potest.data
 
 import com.example.potest.data.database.model.ProfileModel
 import com.example.potest.data.network.model.ProfileDto
+import com.example.potest.domain.entity.Profile
 import com.google.gson.JsonObject
 
 class Mapper {
@@ -26,6 +27,18 @@ class Mapper {
             sections = dto.sections.toString(),
             alertEmail = dto.alertEmail,
             sendSystemNotifications = dto.sendSystemNotifications
+        )
+    }
+
+    fun mapProfileModelToEntity(model: ProfileModel): Profile {
+        return Profile(
+            id = model.id,
+            name = model.name,
+            email = model.email,
+            phone = model.phone,
+            avatar = model.avatar,
+            companyName = model.companyName,
+            sections = model.sections
         )
     }
 }
