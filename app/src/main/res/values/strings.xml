@@ -14,4 +14,11 @@
     <string name="ping_ocean">Ping Ocean</string>
     <string name="login">Войти</string>
     <string name="auth_error">Wrong email or password</string>
+    <string name="logout">Выйти</string>
+    <string name="nameTitle">Name:</string>
+    <string name="tvEmailTitle">Email:</string>
+    <string name="phoneTitle">Phone:</string>
+    <string name="companyTitle">Company:</string>
+    <string name="sectionsTitle">Sections</string>
+    <string name="profile_image">Profile image</string>
 </resources>
