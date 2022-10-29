@@ -63,6 +63,10 @@ class LoginFragment : Fragment() {
             viewModel.authUser(email, password)
         }
     }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 
     companion object {
         fun newInstance(): LoginFragment {

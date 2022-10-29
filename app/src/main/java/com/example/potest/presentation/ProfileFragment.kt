@@ -73,6 +73,10 @@ class ProfileFragment : Fragment() {
     private fun parseArgs() {
         id = arguments?.getString(ID_KEY) ?: throw RuntimeException("Profile id is null")
     }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 
     companion object {
         fun newInstance(id: String): ProfileFragment {
