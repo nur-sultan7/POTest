@@ -14,11 +14,11 @@ class LoginFragment : Fragment() {
     private var _binding: FragmentLoginBinding? = null
     private val binding: FragmentLoginBinding
         get() = _binding ?: throw RuntimeException("FragmentLoginBinding is null")
-    private val viewModel: MainViewModel by lazy {
+    private val viewModel: LoginViewModel by lazy {
         ViewModelProvider(
             this,
             ViewModelProvider.AndroidViewModelFactory(requireActivity().application)
-        )[MainViewModel::class.java]
+        )[LoginViewModel::class.java]
     }
 
     override fun onCreateView(
@@ -38,20 +38,29 @@ class LoginFragment : Fragment() {
     }
 
     private fun setObservers() {
-        viewModel.isAuth.observe(viewLifecycleOwner) {
+        viewModel.isAuthorized.observe(viewLifecycleOwner) {
             if (!it.isNullOrEmpty()) {
-                launchProfileFragment(it)
-            } else {
-                Toast.makeText(requireContext(), getString(R.string.auth_error), Toast.LENGTH_LONG)
+                Toast.makeText(requireContext(), it, Toast.LENGTH_LONG)
                     .show()
                 binding.btnLogin.isEnabled = true
+            } else {
+                viewModel.loadProfile()
             }
+        }
+        viewModel.isProfileLoaded.observe(viewLifecycleOwner) {
+            if (!it.isNullOrEmpty()) {
+                Toast.makeText(requireContext(), it, Toast.LENGTH_LONG)
+                    .show()
+            } else {
+                launchProfileFragment()
+            }
+            binding.btnLogin.isEnabled = true
         }
     }
 
-    private fun launchProfileFragment(id: String) {
+    private fun launchProfileFragment() {
         requireActivity().supportFragmentManager.beginTransaction()
-            .replace(R.id.main_container, ProfileFragment.newInstance(id))
+            .replace(R.id.main_container, ProfileFragment.newInstance())
             .commit()
     }
 

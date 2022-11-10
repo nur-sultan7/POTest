@@ -14,13 +14,12 @@ class ProfileFragment : Fragment() {
     private var _binding: FragmentProfileBinding? = null
     private val binding: FragmentProfileBinding
         get() = _binding ?: throw RuntimeException("FragmentProfileBinding is null")
-    private val viewModel: MainViewModel by lazy {
+    private val viewModel: ProfileViewModel by lazy {
         ViewModelProvider(
             this,
             ViewModelProvider.AndroidViewModelFactory(requireActivity().application)
-        )[MainViewModel::class.java]
+        )[ProfileViewModel::class.java]
     }
-    private lateinit var id: String
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,7 +33,7 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setObservers()
-        viewModel.getProfile(id)
+        viewModel.getProfile()
     }
 
     private fun setObservers() {
@@ -64,30 +63,16 @@ class ProfileFragment : Fragment() {
                 .into(binding.ivProfile)
     }
 
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        parseArgs()
-    }
-
-    private fun parseArgs() {
-        id = arguments?.getString(ID_KEY) ?: throw RuntimeException("Profile id is null")
-    }
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
 
     companion object {
-        fun newInstance(id: String): ProfileFragment {
-            return ProfileFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ID_KEY, id)
-                }
-            }
+        fun newInstance(): ProfileFragment {
+            return ProfileFragment()
         }
 
         private const val EMPTY_VALUE = "Unknown"
-        private const val ID_KEY = "id"
     }
 }
