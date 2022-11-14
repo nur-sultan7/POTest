@@ -3,8 +3,9 @@ package com.example.potest.data
 import android.content.Context
 import android.content.SharedPreferences
 import com.example.potest.R
+import javax.inject.Inject
 
-class SessionManager(context: Context) {
+class SessionManager @Inject constructor(context: Context) {
     private var prefs: SharedPreferences = context.getSharedPreferences(
         context.getString(R.string.app_name),
         Context.MODE_PRIVATE

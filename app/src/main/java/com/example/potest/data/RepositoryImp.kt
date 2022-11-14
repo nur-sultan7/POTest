@@ -1,20 +1,19 @@
 package com.example.potest.data
 
-import android.content.Context
 import com.example.potest.data.database.DatabaseDao
 import com.example.potest.data.network.ApiService
 import com.example.potest.domain.Repository
 import com.example.potest.domain.entity.Profile
 import retrofit2.await
+import javax.inject.Inject
 
-class RepositoryImp(
-    context: Context,
+class RepositoryImp @Inject constructor(
     private val apiService: ApiService,
-    private val databaseDao: DatabaseDao
+    private val databaseDao: DatabaseDao,
+    private val mapper: Mapper,
+    private val sessionManager: SessionManager
 ) : Repository {
 
-    private val mapper = Mapper()
-    private val sessionManager = SessionManager(context)
 
     override suspend fun authUser(email: String, password: String): String? {
         return try {

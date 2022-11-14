@@ -4,8 +4,9 @@ import com.example.potest.data.database.model.ProfileModel
 import com.example.potest.data.network.model.ProfileDto
 import com.example.potest.domain.entity.Profile
 import com.google.gson.JsonObject
+import javax.inject.Inject
 
-class Mapper {
+class Mapper @Inject constructor() {
     fun getJsonBody(email: String, password: String): JsonObject {
         return JsonObject().apply {
             addProperty("email", email)
