@@ -6,19 +6,35 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.example.potest.POTestApp
 import com.example.potest.R
 import com.example.potest.databinding.FragmentProfileBinding
 import com.squareup.picasso.Picasso
+import javax.inject.Inject
 
 class ProfileFragment : Fragment() {
+
+    private val component by lazy {
+        (requireActivity().application as POTestApp).component
+    }
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+
     private var _binding: FragmentProfileBinding? = null
     private val binding: FragmentProfileBinding
         get() = _binding ?: throw RuntimeException("FragmentProfileBinding is null")
+
     private val viewModel: ProfileViewModel by lazy {
         ViewModelProvider(
             this,
-            ViewModelProvider.AndroidViewModelFactory(requireActivity().application)
+            viewModelFactory
         )[ProfileViewModel::class.java]
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        component.inject(this)
+        super.onCreate(savedInstanceState)
     }
 
     override fun onCreateView(

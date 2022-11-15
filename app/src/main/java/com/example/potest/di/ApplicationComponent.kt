@@ -1,15 +1,17 @@
 package com.example.potest.di
 
 import android.app.Application
-import com.example.potest.presentation.MainActivity
+import com.example.potest.presentation.LoginFragment
+import com.example.potest.presentation.ProfileFragment
 import dagger.BindsInstance
 import dagger.Component
 
-
-@Component(modules = [DomainModule::class])
+@ApplicationScope
+@Component(modules = [DomainModule::class, DataModule::class, ViewModelModule::class])
 interface ApplicationComponent {
 
-    fun inject(activity: MainActivity)
+    fun inject(fragment: ProfileFragment)
+    fun inject(fragment: LoginFragment)
 
     @Component.Factory
     interface Factory {

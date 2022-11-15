@@ -1,6 +1,8 @@
 package com.example.potest.domain
 
-class LoadProfileUseCase(private val repository: Repository) {
+import javax.inject.Inject
+
+class LoadProfileUseCase @Inject constructor(private val repository: Repository) {
     suspend operator fun invoke(): String? {
         return repository.loadProfile()
     }

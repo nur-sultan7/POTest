@@ -7,18 +7,33 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.example.potest.POTestApp
 import com.example.potest.R
 import com.example.potest.databinding.FragmentLoginBinding
+import javax.inject.Inject
 
 class LoginFragment : Fragment() {
+
+    private val component by lazy {
+        (requireActivity().application as POTestApp).component
+    }
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+
     private var _binding: FragmentLoginBinding? = null
     private val binding: FragmentLoginBinding
         get() = _binding ?: throw RuntimeException("FragmentLoginBinding is null")
     private val viewModel: LoginViewModel by lazy {
         ViewModelProvider(
             this,
-            ViewModelProvider.AndroidViewModelFactory(requireActivity().application)
+            viewModelFactory
         )[LoginViewModel::class.java]
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        component.inject(this)
+        super.onCreate(savedInstanceState)
     }
 
     override fun onCreateView(
@@ -72,6 +87,7 @@ class LoginFragment : Fragment() {
             viewModel.authUser(email, password)
         }
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

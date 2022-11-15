@@ -1,6 +1,8 @@
 package com.example.potest.domain
 
-class AuthUserUseCase(private val repository: Repository) {
+import javax.inject.Inject
+
+class AuthUserUseCase @Inject constructor(private val repository: Repository) {
     suspend operator fun invoke(email: String, password: String): String? {
         return repository.authUser(email, password)
     }

@@ -1,27 +1,18 @@
 package com.example.potest.presentation
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.potest.data.Mapper
-import com.example.potest.data.RepositoryImp
-import com.example.potest.data.SessionManager
-import com.example.potest.data.database.AppDatabase
-import com.example.potest.data.network.ApiFactory
 import com.example.potest.domain.AuthUserUseCase
 import com.example.potest.domain.LoadProfileUseCase
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class LoginViewModel(application: Application) : AndroidViewModel(application) {
-    private val apiService = ApiFactory.apiService
-    private val databaseDao = AppDatabase.getInstance(application).databaseDao()
-    private val sessionManager = SessionManager(application)
-    private val mapper = Mapper()
-    private val repositoryImp = RepositoryImp(apiService, databaseDao, mapper, sessionManager)
-    private val authUserUseCase = AuthUserUseCase(repositoryImp)
-    private val loadProfileUseCase = LoadProfileUseCase(repositoryImp)
+class LoginViewModel @Inject constructor(
+    private val authUserUseCase: AuthUserUseCase,
+    private val loadProfileUseCase: LoadProfileUseCase
+) : ViewModel() {
     private var _isAuthorized = MutableLiveData<String?>()
     val isAuthorized: LiveData<String?>
         get() = _isAuthorized
