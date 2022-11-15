@@ -4,9 +4,8 @@ import android.app.Application
 import com.example.potest.presentation.MainActivity
 import dagger.BindsInstance
 import dagger.Component
-import javax.inject.Singleton
 
-@Singleton
+
 @Component(modules = [DomainModule::class])
 interface ApplicationComponent {
 

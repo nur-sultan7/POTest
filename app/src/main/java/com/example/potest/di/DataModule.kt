@@ -7,17 +7,16 @@ import com.example.potest.data.network.ApiFactory
 import com.example.potest.data.network.ApiService
 import dagger.Module
 import dagger.Provides
-import javax.inject.Singleton
 
 @Module
 class DataModule {
-    @Singleton
+    @ApplicationScope
     @Provides
     fun provideAppDatabase(application: Application): DatabaseDao {
         return AppDatabase.getInstance(application).databaseDao()
     }
 
-    @Singleton
+    @ApplicationScope
     @Provides
     fun provideApiService(): ApiService {
         return ApiFactory.apiService
