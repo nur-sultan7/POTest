@@ -16,6 +16,8 @@ class ProfileFragment : Fragment() {
 
     private val component by lazy {
         (requireActivity().application as POTestApp).component
+            .profileComponentFactory()
+            .create()
     }
 
     @Inject
