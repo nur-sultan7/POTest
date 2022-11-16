@@ -6,17 +6,16 @@ import com.example.potest.presentation.ProfileViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
-import dagger.multibindings.StringKey
 
 @Module
 abstract class ViewModelModule {
     @IntoMap
-    @StringKey("LoginViewModel")
+    @ViewModelKey(LoginViewModel::class)
     @Binds
     abstract fun bindsLoginViewModel(impl: LoginViewModel):ViewModel
 
     @IntoMap
-    @StringKey("ProfileViewModel")
+    @ViewModelKey(ProfileViewModel::class)
     @Binds
     abstract fun bindsProfileViewModel(impl: ProfileViewModel):ViewModel
 }
