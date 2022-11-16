@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.example.potest.POTestApp
 import com.example.potest.R
 import com.example.potest.databinding.FragmentLoginBinding
 import javax.inject.Inject

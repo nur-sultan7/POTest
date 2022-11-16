@@ -1,4 +1,4 @@
-package com.example.potest
+package com.example.potest.presentation
 
 import android.app.Application
 import com.example.potest.di.DaggerApplicationComponent
